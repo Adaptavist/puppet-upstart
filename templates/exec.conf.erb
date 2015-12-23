@@ -1,0 +1,32 @@
+### File managed with puppet ###
+### Served by:         '<%= scope.lookupvar('::servername') %>'
+### Module:            '<%= scope.to_hash['module_name'] %>'
+### Template source:   '<%= template_source %>'
+
+description     "<%= @name %>"
+
+<% if @start_on -%>
+start on <%= @start_on %>
+<% else -%>
+start on stopped rc RUNLEVEL=[2345]
+<% end -%>
+stop on runlevel [016]
+
+
+respawn
+respawn limit 10 5
+
+env USER="<%= @app_username %>"
+<% @env.keys.each do |key| -%>
+env <%= key %>=<%= env[key] %>
+<% end -%>
+
+console output
+
+<% if @chdir -%>
+chdir <%= @chdir %>
+<% end -%>
+
+# see http://serverfault.com/a/357073 for details on the exec clause
+# this is much simpler with upstart 1.5 but centos is using 0.6.5
+exec su -s /bin/dash -c 'exec "$0" "$@"' "$USER" -- <%= @launch_cmd %>
