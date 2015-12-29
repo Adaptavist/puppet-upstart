@@ -167,4 +167,19 @@ describe 'upstart', :type => 'define' do
       )
     end
   end
+
+  context "Should fail with unsupported OS family" do
+    let(:facts) { { :osfamily => 'Solaris'} }
+    let(:params) { { 
+      :app_username => app_username,
+      :launch_cmd   => launch_cmd,
+      :start_on     => start_on,
+      :env          => env,
+      :chdir        => chdir,
+    } }
+
+    it do
+      should raise_error(Puppet::Error, /upstart - Unsupported Operating System family: Solaris/)
+    end
+  end
 end
