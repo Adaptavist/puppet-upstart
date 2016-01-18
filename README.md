@@ -1,4 +1,5 @@
 # Upstart Module
+[![Build Status](https://travis-ci.org/Adaptavist/puppet-upstart.svg?branch=master)](https://travis-ci.org/Adaptavist/puppet-upstart)
 
 ## Overview
 
