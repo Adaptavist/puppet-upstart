@@ -1,5 +1,5 @@
 name 'adaptavist-upstart'
-version '0.1.5'
+version '0.1.6'
 source 'https://github.com/Adaptavist/puppet-upstart.git'
 author 'adaptavist'
 summary 'upstart puppet module' 
