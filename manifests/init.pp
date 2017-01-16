@@ -7,14 +7,14 @@ define upstart($app_username,
     ) {
     # Sadly upstart support is missing for now from RedHat within Puppet: http://projects.puppetlabs.com/issues/11989
     case $::osfamily {
-        Debian: {
+        'Debian': {
             service { $name:
                     ensure   => 'running',
                     provider => 'upstart',
                     require  => File["/etc/init/${name}.conf"],
             }
         }
-        RedHat: {
+        'RedHat': {
             service { $name:
                     ensure     => 'running',
                     hasstatus  => true,
@@ -30,7 +30,7 @@ define upstart($app_username,
             fail("upstart - Unsupported Operating System family: ${::osfamily}")
         }
     }
-    
+
     file { "/etc/init/${name}.conf":
         ensure  => 'present',
         content => template($template),

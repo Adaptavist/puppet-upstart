@@ -17,8 +17,8 @@ respawn
 respawn limit 10 5
 
 env USER="<%= @app_username %>"
-<% @env.keys.each do |key| -%>
-env <%= key %>=<%= env[key] %>
+<% @env.each_pair do |key, value| %>
+env <%= key %>=<%= value %>
 <% end -%>
 
 console output
